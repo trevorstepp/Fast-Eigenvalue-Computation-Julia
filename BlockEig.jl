@@ -1,10 +1,14 @@
 module BlockEig
 
-using LinearAlgebra
 using Random
+using LinearAlgebra
+#using BenchmarkTools
 
-#include()
+include("build.jl")
+include("algorithm.jl")
+include("benchmark.jl")
+include("verify.jl")
 
-#export
+export build_block_matrix, eig_KxK_diagblocks, time_block_method, time_dense_eig
 
 end

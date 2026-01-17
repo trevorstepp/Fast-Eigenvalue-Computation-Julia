@@ -1,6 +1,3 @@
-using LinearAlgebra
-#using BenchmarkTools
-
 function time_block_method(K::Int, n::Int, M::AbstractMatrix)
     eig_KxK_diagblocks(K, n, M)  # warmup (JIT compiled language)
     t = @elapsed begin 

@@ -1,6 +1,3 @@
-using Random
-using LinearAlgebra
-
 function build_block_matrix(K::Int, n::Int; seed::Union{Int, Nothing}=nothing)
     if seed !== nothing
         Random.seed!(seed)
@@ -25,5 +22,7 @@ function build_block_matrix(K::Int, n::Int; seed::Union{Int, Nothing}=nothing)
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__
+    using Random
+    using LinearAlgebra
     println(build_block_matrix(2, 2; seed=0))
 end
