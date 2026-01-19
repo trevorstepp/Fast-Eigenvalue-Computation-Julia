@@ -1,4 +1,5 @@
-using BlockEig
+include("BlockEig.jl")
+using .BlockEig
 
 const N_VALUES = [100, 250, 500, 750, 1000, 1500, 2000]
 const K = 3

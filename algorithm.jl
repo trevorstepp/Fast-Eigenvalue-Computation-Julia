@@ -35,21 +35,23 @@ function eig_KxK_diagblocks(K::Int, n::Int, matrix::AbstractMatrix)
     return eigs, vecs
 end
 
-# Example usage
-A = ComplexF64[
-    1 0 3 0;
-    0 2 0 4;
-    5 0 7 0;
-    0 6 0 8
-]
+if abspath(PROGRAM_FILE) == @__FILE__
+    # Example usage
+    A = ComplexF64[
+        1 0 3 0;
+        0 2 0 4;
+        5 0 7 0;
+        0 6 0 8
+    ]
 
-eigs, vecs = eig_KxK_diagblocks(2, 2, A)
+    eigs, vecs = eig_KxK_diagblocks(2, 2, A)
 
-println("****KxK function results****\n")
-println("eigenvalues = $eigs")
-println("\neigenvectors = $vecs\n\n")
+    println("****KxK function results****\n")
+    println("eigenvalues = $eigs")
+    println("\neigenvectors = $vecs\n\n")
 
-println("****Regular Julia****\n")
-E = eigen(A)
-println("eigenvalues = $(E.values)")
-println("\neigenvectors = $(E.vectors)")
+    println("****Regular Julia****\n")
+    E = eigen(A)
+    println("eigenvalues = $(E.values)")
+    println("\neigenvectors = $(E.vectors)")
+end
