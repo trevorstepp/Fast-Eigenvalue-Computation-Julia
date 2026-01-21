@@ -2,7 +2,6 @@ module BlockEig
 
 using Random
 using LinearAlgebra
-using Printf
 #using BenchmarkTools
 
 include("build.jl")

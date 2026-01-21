@@ -20,10 +20,10 @@ function verify_results(
     len = length(alg_eigs)
 
     # compute residual for each eigenvalue, eigenvector pair
-    for i in 1:n
+    for i in eachindex(alg_eigs)
         eigval = alg_eigs[i]
         eigvec = alg_vecs[:, i]
-        r = norm(matrix * v - eigval * eigvec)
+        r = norm(matrix * eigvec - eigval * eigvec)
         res_sum += r
         max_res = max(max_res, r)
     end

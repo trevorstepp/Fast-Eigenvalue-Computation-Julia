@@ -1,5 +1,6 @@
 include("BlockEig.jl")
 using .BlockEig
+using Printf
 
 const N_VALUES = [100, 250, 500, 750, 1000, 1500, 2000]
 const K = 3
@@ -43,6 +44,11 @@ if abspath(PROGRAM_FILE) == @__FILE__
     block_time, dense_time = run_experiments()
 
     # save results for plotting
-    using Serialization
-    serialize("timings.jls", (N_VALUES, block_time, dense_time))
+    using CSV, DataFrames
+    df = DataFrame(
+        n = N_VALUES,
+        block_time = block_time,
+        dense_time = dense_time
+    )
+    CSV.write("timings.csv", df)
 end
