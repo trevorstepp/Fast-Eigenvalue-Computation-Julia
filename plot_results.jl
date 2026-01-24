@@ -14,7 +14,9 @@ plot(
     xlabel = "discretization size (n)",
     ylabel = "run time (s)",
     title = "All eigenpairs runtime (K=3)",
-    grid = true
+    grid = true,
+    minorgrid = true,
+    legend = :topleft
 )
 
 # add dense algorithm times
