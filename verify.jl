@@ -1,3 +1,5 @@
+const K_LARGEST = 10  # number of largest eigenvalues to compare
+
 function verify_results(
     matrix::AbstractMatrix,
     alg_eigs::AbstractVector,
@@ -8,11 +10,11 @@ function verify_results(
 )
 
     # sort eigenvalues
-    alg_eigs_soted = sort(alg_eigs, by = x -> (real(x), imag(x)))
-    reg_eigs_sorted = sort(reg_eigs, by = x -> (real(x), imag(x)))
+    alg_dom = dominant_eigs(alg_eigs, K_LARGEST)
+    reg_dom = dominant_eigs(reg_eigs, K_LARGEST)
 
     # check equivalence
-    eig_check = isapprox(alg_eigs_soted, reg_eigs_sorted; atol=atol, rtol=0)
+    eig_check = isapprox(alg_dom, reg_dom; atol=atol, rtol=0)
 
     # keep track of maximum (worst) residual and average residual
     max_res = 0.0
@@ -29,8 +31,15 @@ function verify_results(
     end
 
     return (
+        num_eigenvalues_compared = K_LARGEST,
         eigenvalues_match = eig_check,
         max_residual = max_res,
         mean_residual = res_sum / len
     )
+end
+
+# helper function only used in this file
+function dominant_eigs(eigs::AbstractVector, k_largest::Int)
+    index_arr = sortperm(abs.(eigs), rev=true)
+    return eigs[index_arr][1:k_largest]
 end

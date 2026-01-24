@@ -32,7 +32,11 @@ function run_experiments()
             dense_result.eigenvectors
         )
 
-        println("Eigenvalues match: ", check.eigenvalues_match)
+        @printf(
+            "Eigenvalues match (top %d): %s\n", 
+            check.num_eigenvalues_compared,
+            check.eigenvalues_match
+        )
         @printf("Maximum residual: %.2e\n", check.max_residual)
         @printf("Mean residual: %.2e\n", check.mean_residual)
     end
