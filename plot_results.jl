@@ -10,7 +10,7 @@ plot(
     df.block_time,
     yscale = :log10,
     marker = :circle,
-    label = "Our approach (all)",
+    label = "Block approach",
     xlabel = "discretization size (n)",
     ylabel = "run time (s)",
     title = "All eigenpairs runtime (K=3)",
@@ -24,7 +24,7 @@ plot!(
     df.n,
     df.dense_time,
     marker = :square,
-    label = "Dense eig (full)"
+    label = "eigen"
 )
 
 savefig("K=3.png")
