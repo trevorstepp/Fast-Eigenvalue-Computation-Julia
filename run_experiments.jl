@@ -5,8 +5,8 @@ using Statistics
 using LinearAlgebra
 using BenchmarkTools
 
-BenchmarkTools.DEFAULT_PARAMETERS.samples = 5
-BenchmarkTools.DEFAULT_PARAMETERS.evals = 1
+#BenchmarkTools.DEFAULT_PARAMETERS.samples = 5
+#BenchmarkTools.DEFAULT_PARAMETERS.evals = 1
 
 const N_VALUES = [100, 250, 500, 750, 1000, 1500, 2000]
 const K_VAL = 3
@@ -21,13 +21,13 @@ function run_experiments()
         # build matrix
         M = build_block_matrix(K_VAL, n; seed=0)
 
-        # get results
-        block_eigs, block_vecs = eig_KxK_diagblocks(K_VAL, n, M)
-        E = eigen(M)
-
         # timing
         t_block = @benchmark eig_KxK_diagblocks($K_VAL, $n, $M)
         t_dense = @benchmark eigen($M)
+
+        # get results
+        block_eigs, block_vecs = eig_KxK_diagblocks(K_VAL, n, M)
+        E = eigen(M)
 
         # store times 
         push!(block_time, median(t_block).time / 1e9)
