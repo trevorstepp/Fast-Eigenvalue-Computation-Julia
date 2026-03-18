@@ -6,9 +6,8 @@ using LinearAlgebra
 
 include("build.jl")
 include("algorithm.jl")
-include("benchmark.jl")
 include("verify.jl")
 
-export build_block_matrix, eig_KxK_diagblocks, time_block_method, time_dense_eig, verify_results
+export build_block_matrix, eig_KxK_diagblocks, verify_results
 
 end
