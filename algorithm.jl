@@ -3,12 +3,17 @@ function eig_KxK_diagblocks(K::Int, n::Int, matrix::AbstractMatrix)
     eigs = zeros(ComplexF64, K * n)
     # hold eigenvectors
     vecs = zeros(ComplexF64, K * n, K * n)
+
+    # allocations outside loop to improve runtime
+    M_l = zeros(ComplexF64, K, K)
+    V = zeros(ComplexF64, K * n, K)  # used to place small eigenvectors into full length
+
     # column counter
     col = 1 
 
     # for each l = 1, ..., n
     for l in 1:n
-        M_l = zeros(ComplexF64, K, K)
+        # fill M_l
         for i in 1:K
             for j in 1:K
                 M_l[i, j] = matrix[(i - 1) * n + l, (j - 1) * n + l]
@@ -21,14 +26,15 @@ function eig_KxK_diagblocks(K::Int, n::Int, matrix::AbstractMatrix)
         eigvecs = E.vectors
 
         # store in eigs and vecs
-        eigs[col:col + K - 1] = eigvals
-        V = zeros(ComplexF64, K * n, K)
+        eigs[col:col + K - 1] .= eigvals
+        fill!(V, 0)
+
         for i in 1:K
             for j in 1:K
                 V[(i - 1) * n + l, j] = eigvecs[i, j]
             end
         end
-        vecs[:, col:col + K - 1] = V
+        vecs[:, col:col + K - 1] .= V
         col += K
     end
 
